@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+const program = require('commander');
+const clone = require('../src/clone-template');
+
+//获取模板生成项目 cgt create [options] <app-name>
+program
+  .command('create [app-name] [repository]')
+  .option('-d, --dir <dir>', '项目目录')
+  .option('-c, --clone', ' Use git clone when fetching remote preset')
+  .description('create a new project from a template')
+  .action(function(...args) {
+     let payload = args.slice(0, -2);
+     let options = args.slice(-2,-1);
+    //  let command = args.slice(-1); 
+    // console.log('create', payload,options);
+    clone.run(payload);
+  })
+
+program
+  .version(`code-generate@${require("../package.json").version}`);
+
+program.parse(process.argv);
